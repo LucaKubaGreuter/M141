@@ -10,6 +10,7 @@
   	  	- [Community und Unterstützung](#community-und-unterstützung)
   	  	- [Fazit](#fazit)
 	- [Terminal & Codes](#terminal)
+   	- [Wichtig](#wichtig)
 	- [Status](#status)
 
 
