@@ -8,6 +8,7 @@
   	  	- [Leistung und Features](#leistung-und-features)
   	  	- [Sicherheit](#sicherheit)
   	  	- [Community und Unterstützung](#community-und-unterstützung)
+  	  	- [Fazit](#fazit)
 	- [Terminal & Codes](#terminal)
 	- [Status](#status)
 
