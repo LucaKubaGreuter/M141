@@ -81,6 +81,10 @@ cd bin
 .\mysql -u root -p
 ```
 
+## Wichtig
+
+Ganz lange wurde der mysql Service nicht angezeigt in der Dienste Applikation, ich habe darauf hin MySQL neu installiert doch habe erst nachher realisiert, dass es nichts mit dem zu tun hat. Doch wenn man Xampp als Administrator ausführt kommt die möglichkeit links von der Software ein Feld welches man anklicken kann und damit wird der Service der folgenden Software direkt installiert. Dammit wurde dann auch das Problem gelöst, dass ich mysql nicht als Service hatte. 
+
 ## Status
 
 ![MySQLStatus](MySQLStatus.png)
