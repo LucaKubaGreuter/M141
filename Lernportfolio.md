@@ -3,6 +3,11 @@
 
 - [Tag 1](#tag-1)
   	- [Vergleich MariaDB & Mysql](#vergleich-mariadb--mysql)
+  	  	- [Lizenzierung und Entwicklung](#lizenzierung-und-entwicklung)
+  	  	- [Kompatibilität](#kompatibilität)
+  	  	- [Leistung und Features](#leistung-und-features)
+  	  	- [Sicherheit](#sicherheit)
+  	  	- [Community und Unterstützung](#community-und-unterstützung)
 	- [Terminal & Codes](#terminal)
 	- [Status](#status)
 
