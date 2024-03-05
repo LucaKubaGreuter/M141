@@ -4,7 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e85297d9-d7f9-4d3f-9e2f-4c4c67c22f60" name="Changes" comment="" />
+    <list default="true" id="e85297d9-d7f9-4d3f-9e2f-4c4c67c22f60" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionDataGrip.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionStep1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionStep2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionStep3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionStep4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionStep5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionStep6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TransaktionWorkbench.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WorkbenchInnoDBStatus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hotel.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hotelInnoDB.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc/storage_v2/_src_/schema/firma.49HOBQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc/storage_v2/_src_/schema/kollation.kXc2Eg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08fea26f-4381-4e80-8046-a48f3709cacc/storage_v2/_src_/schema/places.TEg-xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lernportfolio.md" beforeDir="false" afterPath="$PROJECT_DIR$/Lernportfolio.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,13 +51,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenDatabaseViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/lucag/Github/M141/plz_ort.csv"
+    "last_opened_file_path": "C:/Users/lucag/Github/M141/hotel.sql"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [

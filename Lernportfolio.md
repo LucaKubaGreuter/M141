@@ -535,3 +535,141 @@ Bei den folgenden Fragen treffen eine oder mehrere Antworten zu.
     - [x] DESCRIBE *tabellenname*;
     - [ ] SELECT * FROM *tabellenname*;
     - [ ] SHOW TABLE *tabellenname*;
+
+# Tag 3
+
+![InnodDb](hotelInnoDB.png)
+
+***
+
+![TransaktionUser1](TransaktionDataGrip.png)
+![TransaktionUser2](TransaktionWorkbench.png)
+
+***
+
+![Transaktionen](TransaktionStep1.png)
+![Transaktionen](TransaktionStep2.png)
+![Transaktionen](TransaktionStep3.png)
+![Transaktionen](TransaktionStep4.png)
+![Transaktionen](TransaktionStep5.png)
+![Transaktionen](TransaktionStep6.png)
+![Transaktionen](TransaktionStep7.png)
+
+## Tabellentypen und Transaktionen
+1.  Wie bezeichnet man die Ausführung mehrerer DB-Operationen in einem einzigen Schritt?
+
+    - [ ] Referentielle Integrität
+
+    - [ ] Replikation
+
+    - [x] Transaktion
+
+    - [ ] Storage Procedure
+
+2.  Warum sollen Locks möglichst schnell freigegeben werden?
+
+    - [ ] damit das DBMS nicht zu stark belastet wird
+
+    - [x] damit andere DB-Anwender nicht lange warten müssen
+
+    - [ ] damit niemand die Daten ändern kann
+
+    - [ ] damit möglichst viele Benutzer gleichzeitig auf die DB zugreifen können
+
+3.  Welches ist das Standard-Tabellenformat von MySQL (MariaDB)?
+
+    - [x] InnoDB
+
+    - [ ] MyISAM
+
+    - [ ] ARIA
+
+    - [ ] ISAM
+
+4.  Wann verwenden Sie das InnoDB-Tabellenformat?
+
+    - [ ] wenn möglichst schnell auf die Daten zugegriffen werden muss
+
+    - [ ] wenn auf gar keinen Fall ein Datenverlust vorkommen darf
+
+    - [x] wenn viele Benutzer gleichzeitig Daten ändern
+
+    - [ ] wenn bei sehr vielen Daten nicht beliebig viel Speicherplatz vorhanden ist
+
+5.  Was trifft auf den sog. Tablespace zu?
+
+    - [ ] Datei, welche die Daten der entsprechenden Tabelle enthält (\*.MYD)
+
+    - [ ] Datei, welche Beschreibung, Daten und Indexe einer Tabelle enthält
+
+    - [x] Datei, welche alle InnoDB-Tabellen enthält (virtueller Speicher)
+
+    - [ ] wird nach Erreichen von x MB automatisch vergrössert (falls autoextend eingeschaltet)
+    
+6.  Mit welchen Befehlen werden Transaktionen gesteuert?
+
+    - [ ] UNLOCK TABLES;
+
+    - [x] COMMIT; oder ROLLBACK;
+
+    - [ ] ALTER TABLE ... TYPE= ...;
+
+    - [x] BEGIN; oder START TRANSACTION;
+
+7.  Was trifft auf das Locking bei Transaktionen auf InnoDB-Tabellen zu?
+
+    - [ ] in Transaktionen kommt Table locking zur Anwendung
+
+    - [x] es wird Row locking angewendet
+
+    - [ ] es werden alle Datensätze der entsprechenden Tabelle(n) gesperrt
+
+    - [x] es werden nur die gerade bearbeiteten Datensätze gesperrt
+
+8.  Welches sind Vorteile der InnoDB-Tabellen gegenüber MyISAM-Tabellen?
+
+    Unterstützung von Transaktionen (ACID-Kompatibilität)
+    Bessere Wiederherstellung nach Abstürzen
+    Unterstützung von Fremdschlüsseln
+    Row-Level Locking (im Gegensatz zum Table-Level Locking bei MyISAM)  
+      
+
+9.  In welchen Dateien wird die MyISAM-Tabelle KUNDEN gespeichert?
+
+    KUNDEN.MYD (für Daten), KUNDEN.MYI (für Indizes), KUNDEN.frm (für die Tabellenstruktur).
+      
+
+10.  Notieren Sie den SQL-Befehl, der die InnoDB-Tabelle BESTELLUNGEN erstellt.
+    
+    CREATE TABLE BESTELLUNGEN (
+    
+    ) ENGINE=InnoDB;
+      
+
+11.  Welche Locking-Art ist a) bei MyISAM-Tabellen b) bei InnoDB-Tabellen möglich?
+
+    a) bei MyISAM-Tabellen: Table locking
+    b) bei InnoDB-Tabellen: Row locking   
+      
+
+12.  Beschreiben Sie den Begriff Datenbank-Transaktion!
+
+    Eine Transaktion kann aus mehreren Befehlen bestehen; beispielsweise besteht eine Geldüberweisung aus zwei Befehlen: Der Betrag muss vom einen Konto abgezogen werden, und dann zum anderen Konto hinzugefügt werden.
+      
+
+13.  Beschreiben Sie die Bedeutung von I in der Abkürzung ACID.
+
+    Isolation stellt sicher, dass Transaktionen isoliert von den Änderungen anderer Transaktionen ausgeführt werden. 
+      
+
+14.  Wie stellen Transaktionen bei einem DB-Server-Crash die Datenkonsistenz sicher? (Schwierig)
+
+    Indem sie unvollständige Transaktionen beim Neustart zurückrollen und vollständige Transaktionen wiederherstellen, basierend auf den Log-Dateien
+  
+15. Mit welcher Locking-Art wartet ein SELECT-Befehl, bis alle Transaktionen auf die angeforderte Tabelle entsperrt sind? 
+
+    Dies hängt von der Konfiguration und dem verwendeten Isolation Level ab. Normalerweise sollten Select-Befehle bei InnoDB nicht auf andere Transaktionen warten, es sei denn, sie verwenden Locks oder es wird ein höherer Isolationslevel wie Serializable verwendet. 
+          
+16. Wie muss Autocommit gesetzt werden, damit jeder SQL-Befehl zu einer Transaktion gehört und damit explizit mit COMMIT abgeschlossen werden muss, damit er ausgeführt wird? 
+
+    Autocommit muss auf OFF gesetzt werden, damit jeder SQL-Befehl zu einer Transaktion gehört und explizit mit COMMIT abgeschlossen werden muss, bevor er ausgeführt wird.
