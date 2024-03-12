@@ -673,3 +673,112 @@ Bei den folgenden Fragen treffen eine oder mehrere Antworten zu.
 16. Wie muss Autocommit gesetzt werden, damit jeder SQL-Befehl zu einer Transaktion gehört und damit explizit mit COMMIT abgeschlossen werden muss, damit er ausgeführt wird? 
 
     Autocommit muss auf OFF gesetzt werden, damit jeder SQL-Befehl zu einer Transaktion gehört und explizit mit COMMIT abgeschlossen werden muss, bevor er ausgeführt wird.
+
+# Tag 4
+
+![Users](MysqlUser.png)
+
+## Datenbank-Sicherheit
+
+1.  Was bedeutet der Begriff Authentifizierung im Zusammenhang mit einem DB-Server?
+
+    - [ ] Prüfung der Privilegien des Benutzers
+
+    - [x] Antwort auf die Frage Wer?
+
+    - [ ] Identitätsprüfung
+
+    - [ ] Antwort auf die Frage Was?
+
+2.  Wann werden Änderungen im Zugriffssystem von MySQL wirksam?
+
+    - [ ] sofort nach Eingabe der Änderung
+
+    - [x] nach dem Befehl FLUSH PRIVILEGES
+
+    - [ ] nach dem Neustart des DB-Servers
+
+    - [ ] nach dem Befehl GRANT
+
+3.  Was bewirkt der SQL-Befehl GRANT ... ON ... TO ...;
+
+    - [x] Privileg(ien) erteilen
+
+    - [ ] Privileg(ien) wegnehmen
+
+    - [ ] User erstellen, falls noch nicht vorhanden
+
+    - [ ] User löschen
+
+4.  Mit welchem Befehl werden Privilegien kontrolliert?
+
+    - [ ] REVOKE ... ON ... FROM ;
+
+    - [ ] SELECT user, host, password FROM user ;
+
+    - [ ] SHOW TABLES;
+
+    - [x] SHOW GRANTS FOR ... ;
+
+5.  Welches sind die beiden wichtigsten DCL-Befehle (data control)?
+
+    - [ ] SELECT
+
+    - [x] REVOKE
+
+    - [ ] DELETE
+
+    - [x] GRANT
+    
+6.  Was ist nötig, dass Benutzer "meier" keinen Zugang mehr auf den DB-Server hat.
+
+    - [ ] in Systemtabelle user für diesen Benutzer jedes Privileg auf "N" setzen
+
+    - [x] mit DELETE FROM user WHERE user = 'meier'; und FLUSH PRIVILEGES;
+
+    - [ ] in allen Systemtabellen für diesen Benutzer jedes Privileg auf "N" setzen
+
+    - [ ] dem Benutzer das GRANT-Privileg (Grant_priv) wegnehmen
+
+7.  Erklären Sie den Begriff "Autorisierung" im Zusammenhang mit einem DB-Server.
+
+    Das bedeutet, dass festgelegt wird, welche Aktionen der authentifizierte Benutzer ausführen darf.
+      
+
+8.  Wann wird das Schlüsselwort IDENTIFIED BY verwendet?
+
+    Das wird verwendet, um beim Erstellen eines Benutzers oder beim Ändern des Passworts das Passwort festzulegen  
+      
+
+9.  Ergänzen Sie den Befehl REVOKE ... ON ... FROM ... ; mit eigenen Angaben.
+
+    REVOKE SELECT ON database.schule FROM 'luca'@'localhost';
+      
+10.  Beschreiben Sie den Begriff der MySQL-Testdatenbank.
+
+    Das ist eine Datenbank, die zu Testzwecken verwendet wird, um sicherzustellen, dass Abfragen und Prozesse korrekt funktionieren, ohne echte Daten zu beeinträchtigen.  
+      
+
+11.  Mit welchem Befehl ändern Sie das Passwort von Benutzer Meier auf "abc123"?
+
+    ALTER USER 'Meier' IDENTIFIED BY 'abc123';
+      
+
+12.  Geben Sie eine Erklärung für folgende Fehlermeldung.  
+    
+    ```  
+    GRANT USAGE ON \*.\* TO abc IDENTIFIED BY 'a12';  
+    ERROR 1045: Access denied for user: '@127.0.0.1'
+    ```
+    
+    Der Benutzer 'abc' hat keine Berechtigung, Privilegien zu erhalten, oder das Passwort 'a12' entspricht nicht den Sicherheitsanforderungen.  
+      
+
+13.  Korrigieren Sie den folgenden Befehl:  
+    
+    ```  
+    REVOKE ALL FROM ''@localhost;  
+    ERROR 1064: You have an error
+    ```
+    
+    REVOKE ALL PRIVILEGES ON . FROM 'user'@'localhost';
