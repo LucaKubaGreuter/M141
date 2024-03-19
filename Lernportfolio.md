@@ -782,3 +782,6 @@ Bei den folgenden Fragen treffen eine oder mehrere Antworten zu.
     ```
     
     REVOKE ALL PRIVILEGES ON . FROM 'user'@'localhost';
+
+# Tag 5
+
