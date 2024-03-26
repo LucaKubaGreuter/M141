@@ -785,3 +785,289 @@ Bei den folgenden Fragen treffen eine oder mehrere Antworten zu.
 
 # Tag 5
 
+## Grundlagen:
+- **DB-Server im LAN**: Die Dezentralisierung in der Informatik führt zur Verteilung von Aufgaben und Daten auf mehrere Rechner im Netzwerk. Dies verbessert Datenverfügbarkeit, Datensicherheit, Flexibilität, Performance und Kosten.
+
+- **Zugriff über das Netz**: Der Zugriff auf den DB-Server über das Netzwerk erfordert die Angabe der Netzwerkadresse des Servers. Bei einer Firewall muss der Port 3306 geöffnet sein.
+
+## Netzwerkkommunikation und -konfiguration:
+- **Verbindung zum DB-Server testen**: Überprüfung der Netzverbindung und des DB-Servers mit `ping` und `mysqladmin`.
+- **Backup und Restore über das Netz**: Durchführen von Sicherungs- und Wiederherstellungsaktionen unter Angabe der Serveradresse.
+- **Zugriffssteuerung**: Zeitweises Verbot des Netzwerkzugriffs auf den DB-Server durch Einstellungen in der Konfigurationsdatei (`skip-networking`).
+
+## ODBC-Interface:
+- **Einleitung**: ODBC (Open Database Connectivity) ist eine Middleware zur einheitlichen Datenbankanbindung, besonders genutzt in Windows-Umgebungen.
+- **Konfiguration und Test**: Installation des ODBC-Treibers und Einrichtung eines Data Source Name (DSN) zur Verbindung mit der Datenbank.
+
+## Zugriff von Access auf MySQL-Datenbank:
+- **Integration**: Kombination der Vorteile von Access und MySQL durch Einbindung von MySQL-Tabellen in Access.
+- **Datentypen und Abfragen**: Anpassung der Datentypen für Kompatibilität und Erstellung von Abfragen und Formularen in Access, die auf MySQL-Tabellen zugreifen.
+
+## DB-Server im LAN
+
+1.  Welcher Befehl testet die Verbindung zum Server-Rechner mit Adresse 139.79.124.97?
+
+    - [ ] mysql -h 139.79.124.97
+
+    - [ ] ipconfig
+
+    - [x] ping 139.79.124.97
+
+    - [ ] mysqladmin -h 139.79.124.97 -u root -p ping
+
+2.  Wozu wird der Parameter -h bei MySQL verwendet?
+
+    - [ ] bewirkt die Abfrage des Passworts
+
+    - [ ] bewirkt die Verbindung als bestimmter Benutzer
+
+    - [ ] Angabe der Adresse des Client-Rechners
+
+    - [x] Angabe der Adresse des Server-Rechners
+
+3.  Was bewirkt der Befehl 'mysqldump -h 139.79.124.97 hotel \> datei.txt'?
+
+    - [ ] Backup der DB hotel in die Datei datei.txt auf Adresse 139.79.124.97
+
+    - [x] Backup der angegebenen DB auf dem Server mit der IP-Adresse 139.79.124.97
+
+    - [ ] Restore der Datenbank hotel auf dem Server mit der Adresse 139.79.124.97
+
+    - [ ] Ausführen des SQL-Skripts datei.txt auf Adresse 139.79.124.97 auf die DB hotel
+
+4.  Welche Aufgabe hat der ODBC-Driver?
+
+    - [ ] passt die SQL-Befehle dem entsprechenden DB-Server an
+
+    - [ ] ermöglicht das Erstellen und Konfigurieren von ODBC-Datenquellen (DSN)
+
+    - [x] ermöglicht den einheitlichen Zugriff einer Applikation auf verschiedene Datenbanken
+
+    - [ ] ermöglicht den Zugriff einer Applikation auf eine bestimmte DB
+
+5.  Wie greifen Sie vom Konsolenfenster auf einen DB-Server mit Adresse 139.79.124.97 zu?
+
+    - [ ] mysqladmin -h 139.79.124.97
+
+    - [ ] mysql -h 139.79.124.97 hotel \< hotel.bkp
+
+    - [x] mysql -h 139.79.124.97 -u root -p
+
+    - [ ] ping 139.79.124.97
+
+1.  Welche Aufgaben hat der DB-Server im Gegensatz zum DB-Client?
+
+    Der DB-Server verwaltet die Datenbank und verarbeitet Anfragen von Clients. Er ist für die Speicherung, Abfrage und Aktualisierung der Daten verantwortlich. Der DB-Client hingegen sendet Anfragen an den Server, um mit der Datenbank zu interagieren, z.B. Daten abzufragen oder zu ändern.   
+      
+
+2.  Weshalb benutzt man MS Access z.B. zusammen mit einem MySQL-Server?
+
+    MS Access kann als Frontend für Benutzerschnittstellen und Berichte genutzt werden, während ein MySQL-Server im Hintergrund als leistungsfähige Datenbank dient, die große Mengen von Daten verwalten kann. 
+      
+
+3.  Wie bestimmen Sie die IP-Adresse des Server-Rechners?
+
+    Man kann die IP-Adresse eines Servers in einem Netzwerk mit dem Befehl ipconfig im Terminal ermitteln.
+      
+
+4.  Wie prüfen Sie, ob der DB-Server auf Adresse 139.79.124.97 läuft?
+
+    Dies kann mam überprüfen, indem man den Befehl ping 139.79.124.97 nutzen oder versuchen, mit einem Datenbank-Client eine Verbindung herzustellen.
+      
+
+5.  Welcher Befehl führt das SQL-Skript xy.sql auf die DB hotel auf Adresse 139.79.124.97 aus?
+
+    Der Befehl könnte so aussehen: mysql -h 139.79.124.97 -u [username] -p[password] hotel < xy.sql
+      
+
+6.  Wozu wird ODBC verwendet?
+
+    ODBC wird verwendet, um Applikationen einen standardisierten Zugriff auf Datenbanken verschiedener Hersteller zu ermöglichen.
+      
+
+7.  Was wird benötigt, um von Access mit ODBC z.B. auf einen DB2-Server zuzugreifen?
+
+    Man benötigt den entsprechenden ODBC-Treiber für den DB2-Server und muss eine ODBC-Datenquelle auf dem Client-Computer einrichten.
+      
+
+8.  Was wird in der Java-Welt anstelle von ODBC verwendet?
+
+    In der Java-Welt wird JDBC (Java Database Connectivity) anstelle von ODBC verwendet, um mit Datenbanken zu interagieren.
+      
+
+9.  Was sind eingebundene Access-Tabellen?
+
+    Eingebundene Access-Tabellen sind Tabellen in einer Access-Datenbank, die tatsächlich in einer anderen Datenquelle gespeichert sind, wie z.B. in einer SQL Server-Datenbank oder einer anderen Access-Datenbank. Sie ermöglichen es Benutzern, mit Daten zu arbeiten, als wären sie direkt in der Access-Datenbank gespeichert, obwohl die Daten physisch in einem anderen System liegen. 
+
+
+
+# Tag 6
+
+## Grundlagen:
+- **Server-Administration**: Nach Standardinstallation funktioniert der DB-Server `mysqld` meistens problemlos. Für spezielle Anforderungen, wie andere Sprachen oder verbesserte Performance, können beim Start des Servers zusätzliche Parameter angegeben werden.
+  
+- **Server-Konfiguration**: Die Konfiguration des Servers erfolgt über Kommandozeilenparameter oder Konfigurationsdateien (z.B. `my.ini`, `my.cnf`). Werte, die direkt in der Kommandozeile angegeben werden, überschreiben die in den Konfigurationsdateien festgelegten Werte.
+
+## Wichtige MySQL-Konfigurationsparameter:
+- **Parameter auf der Kommandozeile**: Zum Beispiel kann der Server mit der Option `--language=german` gestartet werden, um Fehlermeldungen auf Deutsch anzuzeigen.
+- **Parameter in Konfigurationsdateien**: Hier werden Server-Parameter definiert, die beim Serverstart automatisch geladen werden.
+
+## Logging und dessen Bedeutung:
+- **Zweck des Logging**: Protokollierung von Änderungen in der Datenbank für Monitoring, Sicherheit, Optimierung und Replikation.
+- **Arten des Logging**:
+  - **Error Log**: Protokolliert Start und Shutdown des Servers sowie Fehlermeldungen.
+  - **Binäres Logging**: Wird für Transaktionen und Datenwiederherstellung verwendet. Änderungen müssen mit `log-bin` in der `my.ini` aktiviert werden.
+
+## Backup und Restore:
+- **Wichtigkeit von Backups**: Regelmäßige Backups schützen vor Datenverlust durch Crashs.
+- **Restore-Prozess**: Zuerst wird das letzte Backup eingelesen, anschließend werden die seitdem erstellten Update Log-Dateien angewendet.
+
+## Daten Import und Export:
+- **Verfahren**: Beschreibt den Prozess der Datenübertragung zwischen Textdateien und DB-Tabellen. 
+- **Befehle**: Einsatz von `SELECT ... INTO OUTFILE` zum Exportieren und `LOAD DATA INFILE` zum Importieren von Daten.
+
+## Optimierung:
+- **Ziele**: Verbesserung der Performance, Einsparung von Speicherplatz und Gewährleistung der Portabilität.
+- **Methoden**: Anpassung der Datenbankstruktur, Analyse von DB-Abfragen, Optimierung der Serverparameter.
+
+## Server konfigurieren
+
+1. **Auf welche Arten können Konfigurationsparameter definiert werden?**
+    - [ ] mit einem INSERT-Befehl
+    - [x] durch Eintrag auf der Kommandozeile
+    - [x] durch Eintrag in einer Konfigurationsdatei
+    - [ ] durch Eintrag in einem Logfile
+
+2. **Welcher Konfigurationsparameter legt fest, wo die Log-Dateien abgelegt werden?**
+    - [ ] basedir
+    - [ ] datadir
+    - [x] log-bin
+    - [ ] logdir
+
+3. **Mit welchem Eintrag beginnen die Server-Parameter in der Konfigurationsdatei?**
+    - [ ] [mysql]
+    - [ ] [WinMySQLadmin]
+    - [ ] [mysqldump]
+    - [x] [mysqld]
+
+4. **Wozu kann der DB-Client mysqlshow verwendet werden?**
+    - [ ] Backup erstellen
+    - [x] DB-Schema anzeigen
+    - [ ] Verbindung zum DB-Server testen
+    - [ ] Inhalt einer Protokolldatei anschauen
+
+5. **Mit welchem Log-File bestimmen Sie den letzten Start des MySQL-Servers?**
+    - [x] Error Log
+    - [ ] Update Log
+    - [ ] Query Log
+    - [ ] Transaction Log
+
+6. **Welcher Eintrag im Konfigurationsfile schaltet die Protokollierung aller User-Login ein?**
+    - [ ] log-bin
+    - [ ] log-slow-queries
+    - [x] log
+    - [ ] log-error=C:/log/err.log
+
+7. **Wie restaurieren Sie nach einem Server-Ausfall eine DB vollständig?**
+    - [ ] Einlesen des letzten Backup
+    - [ ] Verwenden der Option --opt beim Erstellen des Backup
+    - [ ] Einlesen des Query-Log
+    - [x] Einlesen aller Update-Logs in der richtigen Reihenfolge (mit Hilfe von mysqlbinlog)
+
+8. **Wie erreichen Sie, dass Änderungen in der Konfigurationsdatei wirksam werden?**
+    Änderungen in der Konfigurationsdatei werden wirksam, indem Sie den Datenbankserver neu starten. Dies kann je nach System durch Dienste, Systemsteuerung oder Kommandozeilenbefehle erfolgen.
+
+9. **Durch welche Daten wird der von einer DB benötigte Speicherplatz bestimmt?**
+    Der Speicherplatz wird durch die Größe der gespeicherten Daten in den Tabellen, die Größe der Indexe, Logs und temporären Dateien bestimmt.
+
+10. **Wozu wird das Logging (Protokollierung) verwendet?**
+    Logging wird verwendet, um Vorgänge auf dem Server zu protokollieren, was bei der Fehlersuche und Leistungsoptimierung hilft.
+
+11. **In welcher Log-Datei finden Sie den Anwender, der bestimmte Daten löschte?**
+    Solche Informationen könnten im Binary Log (falls aktiviert) oder im Audit Log (falls konfiguriert und verwendet) gefunden werden.
+
+12. **Welche Informationen finden Sie im Slow Query Log?**
+    Im Slow Query Log finden Sie Abfragen, die länger als ein voreingestellter Schwellenwert dauern, inklusive der Ausführungszeit und der Abfrage selbst.
+
+13. **Geben Sie für jede Protokolldatei an, wie Sie deren Inhalt kontrollieren.**
+    Der Inhalt der Protokolldateien kann mit Texteditoren, Befehlszeilen-Tools wie `cat`, `more`, `less` (unter Linux) oder speziellen Log-Analyse-Tools überprüft werden.
+
+14. **Wie beeinflusst der Parameter --opt beim Erstellen eines Backup das Tabellenlocking?**
+    Der Parameter --opt bei mysqldump verwendet schnelles Backup und Wiederherstellen und aktiviert Locking-Optionen, um Konsistenz zu gewährleisten, was bedeutet, dass Tabellen während des Backups gelockt werden, um Änderungen zu verhindern.
+
+15. **Beschreiben Sie das Vorgehen, um Daten von MySQL nach ORACLE zu migrieren.**
+    Datenmigration von MySQL nach ORACLE kann durch Exportieren der MySQL-Daten in ein Format, das ORACLE lesen kann (z.B. CSV), und anschließendes Importieren dieser Daten in ORACLE erfolgen.
+
+16. **Beschreiben Sie eine praktische Anwendung für den READ Lock.**
+
+    Ein READ Lock wird verwendet, um sicherzustellen, dass keine anderen Prozesse Daten ändern können, während sie gelesen werden. Eine praktische Anwendung für den READ Lock wäre zum Beispiel, eine konsistente Datensicherung oder Analyse durchzuführen, bei der garantiert werden muss, dass sich die Daten während des Vorgangs nicht ändern.
+
+---
+
+## Optimierung
+
+1. **Welche Möglichkeiten können die Geschwindigkeit eines DB-Server verbessern?**
+    - [ ] Indexe möglichst vermeiden
+    - [x] Serverparameter einstellen
+    - [x] Transaktionen verwenden
+    - [x] Locks verwenden
+
+2. **Wie werden Daten schneller in eine DB-Tabelle geladen?**
+    - [ ] durch Komprimieren der Daten vor der Übertragung
+    - [ ] durch Verwenden des Parameters --opt beim Erstellen des Backup-Skripts
+    - [x] durch Importieren der Daten aus einer Textdatei
+    - [ ] durch Verwenden von vielen INSERT-Befehlen
+
+3. **Was trifft auf den Befehl OPTIMIZE TABLE zu?**
+    - [x] entfernt nicht genutzten Speicherplatz aus MyISAM-Tabellendateien
+    - [ ] ist auf MyISAM- und InnoDB-Tabellen anwendbar
+    - [ ] wird angewendet bei Tabellen, die häufig abgefragt werden
+    - [x] defragmentiert DB-Dateien
+
+4. **Wie finden Sie langsame DB-Abfragen?**
+    - [ ] mit EXPLAIN SELECT
+    - [ ] im Query Log
+    - [x] im Slow Query Log
+    - [ ] im Error Log
+
+5. **Welche Aussagen betreffend DB-Optimierung sind korrekt?**
+    - [ ] Abfragen, die LIKE enthalten, können immer optimiert werden
+    - [x] Indexe beschleunigen Abfragen
+    - [x] Indexe werden allgemein auf Schlüsselattribute gelegt
+    - [ ] durch Indexe werden DB-Einträge und -änderungen schneller
+
+6. **Wann verwenden Sie den Befehl EXPLAIN?**
+    - [ ] um Daten schneller in die DB zu laden
+    - [x] immer im Zusammenhang mit SELECT
+    - [x] um langsame Abfragen zu finden
+    - [x] um zu erkennen, wie sich ein Index auf die Geschwindigkeit einer Abfrage auswirkt
+
+7. **Welches sind Gründe für die Verwendung eines Index?**
+    - [ ] um das Eintragen von Daten in Tabellen bei Unique-Attributen zu beschleunigen
+    - [x] um DB-Abfragen zu beschleunigen
+    - [ ] um das Ändern von Daten zu verlangsamen
+    - [x] um einmalige Werte zu gewährleisten
+
+8. **Nennen Sie Ziele der DB-Optimierung?**
+    Ziele der DB-Optimierung umfassen die Verbesserung der Abfragegeschwindigkeit, die Reduzierung von Speicherplatz und Systemressourcen, die Verbesserung der Datenintegrität und die Gewährleistung der Skalierbarkeit.
+
+9. **Was wird optimiert, um die Geschwindigkeit eines DB-Servers zu verbessern?**
+    Zur Verbesserung der Geschwindigkeit eines DB-Servers können Abfragezeiten durch Indexierung, Partitionierung, Anpassung von Serverparametern und Optimierung von SQL-Abfragen reduziert werden.
+
+10. **Mit welchen 2 prinzipiellen Maßnahmen werden DB-Abfragen beschleunigt?**
+    DB-Abfragen werden hauptsächlich durch Indexierung und das Schreiben effizienter SQL-Abfragen beschleunigt.
+
+11. **Beschreiben Sie kurz, wie Sie den Befehl EXPLAIN verwenden.**
+    Der Befehl EXPLAIN wird verwendet, indem man ihn vor eine SQL-Abfrage stellt (z.B. EXPLAIN SELECT * FROM table;). Er zeigt, wie MySQL die Abfrage ausführt, inklusive der verwendeten Indizes und der geschätzten Anzahl an Zeilen, die verarbeitet werden.
+
+12. **Wozu wird der Befehl OPTIMIZE TABLE angewendet?**
+    Der Befehl OPTIMIZE TABLE wird verwendet, um den Speicherplatz einer Tabelle nach dem Löschen einer großen Anzahl von Zeilen zu reduzieren und um die Tabellendateien zu defragmentieren.
+
+13. **Wie werden SELECT-Befehle optimiert?**
+    SELECT-Befehle werden optimiert, indem man geeignete Indizes verwendet, die Anzahl der abgerufenen Spalten und Zeilen minimiert, Joins effizient gestaltet und die WHERE-Bedingungen optimiert, um den Scan von nicht benötigten Zeilen zu vermeiden. Außerdem können Funktionen und Berechnungen in Abfragen vermieden werden, die den Einsatz von Indizes verhindern.
+
+14. **Wie viele DB-Tabellen können standardmäßig gleichzeitig geöffnet sein?**
+    Die Anzahl der gleichzeitig geöffneten DB-Tabellen wird durch die Serverparameter wie `table_open_cache` bestimmt und kann je nach Konfiguration und System unterscheiden.
+
+15. **Wie schalten Sie den Query Cache ein bzw. aus?**
+    Der Query Cache in MySQL wird durch Setzen der `query_cache_size` (für die Größe des Caches) und der `query_cache_type` (für den Typ des Caches) in der Konfigurationsdatei oder zur Laufzeit über SQL-Befehle ein- oder ausgeschaltet. Allerdings wurde der Query Cache ab MySQL 8.0 entfernt und sollte in neueren Versionen nicht mehr berücksichtigt werden.
