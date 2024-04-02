@@ -1,9 +1,13 @@
 
 # Lernportfolio
 
-- [Vergleich MariaDB & Mysql](#vergleich-mariadb--mysql)
-- [Terminal & Codes](#terminal)
-- [Status](#status)
+- [Tag 1](#tag-1)
+- [Tag 2](#tag-2)
+- [Tag 3](#tag-3)
+- [Tag 4](#tag-4)
+- [Tag 5](#tag-5)
+- [Tag 6](#tag-6)
+- [Tag 7](#tag-7)
 
 
 # Tag 1
@@ -1071,3 +1075,476 @@ Bei den folgenden Fragen treffen eine oder mehrere Antworten zu.
 
 15. **Wie schalten Sie den Query Cache ein bzw. aus?**
     Der Query Cache in MySQL wird durch Setzen der `query_cache_size` (für die Größe des Caches) und der `query_cache_type` (für den Typ des Caches) in der Konfigurationsdatei oder zur Laufzeit über SQL-Befehle ein- oder ausgeschaltet. Allerdings wurde der Query Cache ab MySQL 8.0 entfernt und sollte in neueren Versionen nicht mehr berücksichtigt werden.
+
+# Tag 7
+
+## Benutzererstellung und Login-Tests
+
+- **Benutzererstellung**: Mit SQL-Befehlen `CREATE USER 'Reader' IDENTIFIED BY 'testerReader';` und `CREATE USER 'Contributor' IDENTIFIED BY 'testerContributor';` werden zwei Benutzer erstellt. Diese haben unterschiedliche Berechtigungen, um die Zugriffssteuerung und Funktionalität der Datenbank zu testen.
+- **Login-Tests**: Nach der Erstellung der Benutzer werden Logins getestet, um sicherzustellen, dass die Zugriffsrechte wie erwartet funktionieren. Dies ist wichtig für die Validierung der Sicherheit und Funktionalität der Datenbank.
+
+## Schemaerstellung und Datenbefüllung
+
+- **Schemata und Tabellen**: Durch den Befehl `CREATE SCHEMA IF NOT EXISTS 'myTestDb' DEFAULT CHARACTER SET utf8 ;` wird ein Schema erstellt, gefolgt von `CREATE TABLE`-Anweisungen für `Person` und `Adresse`. Dies legt die Grundstruktur der Datenbank fest.
+- **Datenbefüllung**: Mit den `LOAD DATA INFILE`-Befehlen werden die Tabellen `Person` und `Adresse` jeweils mit 400.000 Datensätzen aus CSV-Dateien befüllt. Dies dient dem Test der Handhabung großer Datenmengen und der Performance der Datenbank.
+
+## Performance-Tests und Datenkonsistenz
+
+- **Performance ohne Index**: Ein Performance-Test ohne Index wird durchgeführt, um die Basisleistung bei der Abfrage der Datenbank zu messen. Typischerweise führt dies zu einem Tablescan, der ineffizient ist.
+- **Indexerstellung**: Durch das Erstellen von Indizes mit `CREATE INDEX`-Befehlen auf die Tabellen wird die Abfrageperformance signifikant verbessert, indem ein schnellerer Zugriff auf die Daten ermöglicht wird.
+- **Datenkonsistenz**: Datenkonsistenztests, insbesondere das Aufdecken von Dateninkonsistenzen durch simulierte Duplikate in der Tabelle `Adresse`, sind entscheidend für die Integrität der Datenbank. Lösungen umfassen das Setzen von Primärschlüsseln und das Entfernen redundanter Datensätze.
+
+Diese SQL-Befehle und Testverfahren sind integraler Bestandteil des Prozesses, Datenbanksysteme effizient in Betrieb zu nehmen und sicherzustellen, dass sie unter verschiedenen Bedingungen korrekt und effizient funktionieren.
+
+## 1 Login mit Test User
+
+Nicht möglich. Warum?
+
+```BATCH
+c:>\..\mysql -u Reader -p
+ERROR 1045 (28000): Access denied for user 'Reader'@'localhost' 
+```
+* Test-User existiert (noch) nicht
+
+## 2 User erstellen und Login testen
+
+Zwei Test User mit Passwort erstellen:  (Hier `localhost` und `%`!!!)
+
+```sql
+CREATE USER 'Reader' IDENTIFIED BY 'testerReader'; 
+CREATE USER 'Contributor' IDENTIFIED BY 'testerContributor';
+```
+
+```BATCH
+PS C:\..\> mysql -u Reader -p
+Enter password: ************
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 692
+Server version: 10.11.4-MariaDB-log mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> Show Databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
++--------------------+
+1 row in set (0.001 sec)
+
+MariaDB [(none)]> Exit
+
+
+
+PS C:\Users\michael> mysql -u Contributor -p
+Enter password: *****************
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 696
+Server version: 10.11.4-MariaDB-log mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show Databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
++--------------------+
+1 row in set (0.001 sec)
+
+MariaDB [(none)]> EXIT
+
+```
+
+> MariaDB erstellt damit 4 User, wobei die 2 Localhost-User keine PW haben! ° <br>
+> überprüfen Sie das mit phpMyAdmin! --> Siehe Punkt 5! <br>
+> Vorteil: Auf dem Localhost können Sie so ohne PW einloggen... <br>
+> Im Produktiven Betrieb die 2 Localhost-User wieder löschen!!! <br>
+
+## 3 Schema und Tabellen erstellen
+
+
+
+
+```BATCH
+PS C:\..\> mysql -u root -p
+Enter password: ************
+```
+
+```sql
+DROP SCHEMA IF EXISTS `myTestDb` ;
+CREATE SCHEMA IF NOT EXISTS `myTestDb` DEFAULT CHARACTER SET utf8 ;
+USE `myTestDb` ;
+
+DROP TABLE IF EXISTS `Person` ;
+DROP TABLE IF EXISTS `Adresse` ;
+
+CREATE TABLE Person (
+    Id INT,
+    Vorname VARCHAR(255),
+    Nachname VARCHAR(255),
+    Email VARCHAR(255),
+    AdresseId INT
+);
+
+CREATE TABLE Adresse (
+    Id INT,
+    Strasse VARCHAR(255),
+    Hausnummer VARCHAR(10),
+    PLZ VARCHAR(10),
+    Stadt VARCHAR(255),
+    Bundesstaat VARCHAR(10)
+);
+```
+
+```SQL
+MariaDB [myTestDb]> show Tables;
++--------------------+
+| Tables_in_mytestdb |
++--------------------+
+| adresse            |
+| person             |
++--------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [myTestDb]>
+```
+
+Die beiden Tabellen haben keine PK und Indizes definiert.
+Erwartetes Resultat: Schlechte Performance.
+
+
+## 4 Mit Admin-User "Bulkload" Tabellen mit Daten befüllen (je 400'000 Datensätze)
+
+```BATCH
+PS C:\xampp\mysql\data> dir *.csv
+
+    Directory: C:\xampp\mysql\data
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          27.03.2024    20:40       20237114 adresse.csv
+-a---          12.03.2020    14:19          41920 file.csv
+-a---          27.03.2024    20:40       19665449 person.csv
+
+```
+
+
+```sql
+use mytestdb;
+select * from adresse;
+
+	Empty set (0.001 sec)
+
+
+LOAD DATA INFILE './person.csv' 
+INTO TABLE Person
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS;
+	Query OK, 400000 rows affected (3.734 sec)
+	Records: 400000  Deleted: 0  Skipped: 0  Warnings: 0
+	
+	
+select * from person WHERE ID=2000;
++------+---------+----------+-------------+-----------+
+| Id   | Vorname | Nachname | Email       | AdresseId |
++------+---------+----------+-------------+-----------+
+| 2000 | Steve   | Brock    | jal@padi.tl |      2000 |
++------+---------+----------+-------------+-----------+
+1 row in set (0.160 sec)	
+	
+
+LOAD DATA INFILE './adresse.csv' 
+INTO TABLE Adresse
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS;
+
+	Query OK, 400003 rows affected (3.536 sec)
+	Records: 400003  Deleted: 0  Skipped: 0  Warnings: 0
+	
+	
+select * from adresse WHERE ID=2000;
++------+------------------+------------+-------+---------+-------------+
+| Id   | Strasse          | Hausnummer | PLZ   | Stadt   | Bundesstaat |
++------+------------------+------------+-------+---------+-------------+
+| 2000 | Nimbum Boulevard | 38         | 93312 | Kuheago | VA          |
++------+------------------+------------+-------+---------+-------------+
+1 row in set (0.157 sec)
+```
+
+## 5 Mit Admin-User Berechtigungen für die User konfigurieren
+
+```sql
+-- Rollen erstellen und berechtigen
+CREATE ROLE 'RoleReader', 'RoleContributor';
+GRANT SELECT ON myTestDb.* TO 'RoleReader';
+GRANT SELECT, INSERT, UPDATE, DELETE ON myTestDb.* TO 'RoleContributor';
+
+-- Rollen den Benutzern zuweisen
+GRANT 'RoleReader' TO 'Reader'@'localhost';
+GRANT 'RoleContributor' TO 'Contributor'@'localhost';
+
+-- Berechtigungen neu laden damit GRANTS wirksam wird
+FLUSH PRIVILEGES;
+```
+
+Grants überprüfen: 
+
+```sql
+SHOW GRANTS FOR 'Reader';
++-------------------------------------------------------------------------------------------------------+
+| Grants for Reader@%                                                                                   |
++-------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `Reader`@`%` IDENTIFIED BY PASSWORD '*EA431C49EA44F36FCBC7D4D3762D0258E4AA6211' |
++-------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+SHOW GRANTS FOR 'Contributor';
++------------------------------------------------------------------------------------------------------------+
+| Grants for Contributor@%                                                                                   |
++------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `Contributor`@`%` IDENTIFIED BY PASSWORD '*73F5444B12A5B161CD212Buse 6B1D21281D0D5D22BC' |
++------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+```
+
+## 6 Mit Test-User einloggen und die Berechtigungen testen
+
+### Reader 
+
+Grants bei Test User `Reader` überprüfen: 
+
+```sql
+show Grants;
++--------------------------------------------+
+| Grants for Reader@localhost                |
++--------------------------------------------+
+| GRANT `RoleReader` TO `Reader`@`localhost` |
+| GRANT USAGE ON *.* TO `Reader`@`localhost` |
++--------------------------------------------+
+2 rows in set (0.000 sec)
+
+SET ROLE RoleReader;
+Query OK, 0 rows affected (0.000 sec)
+
+show Grants;
++----------------------------------------------+
+| Grants for Reader@localhost                  |
++----------------------------------------------+
+| GRANT `RoleReader` TO `Reader`@`localhost`   |
+| GRANT USAGE ON *.* TO `Reader`@`localhost`   |
+| GRANT USAGE ON *.* TO `RoleReader`           |
+| GRANT SELECT ON `mytestdb`.* TO `RoleReader` |
++----------------------------------------------+
+4 rows in set (0.000 sec)
+
+-- SELECT
+use mytestdb;
+select * FROM adresse JOIN person WHERE person.AdresseID = Adresse.ID AND Adresse.ID = 2000;
++------+------------------+------------+-------+---------+-------------+------+---------+----------+-------------+-----------+
+| Id   | Strasse          | Hausnummer | PLZ   | Stadt   | Bundesstaat | Id   | Vorname | Nachname | Email       | AdresseId |
++------+------------------+------------+-------+---------+-------------+------+---------+----------+-------------+-----------+
+| 2000 | Nimbum Boulevard | 38         | 93312 | Kuheago | VA          | 2000 | Steve   | Brock    | jal@padi.tl |      2000 |
++------+------------------+------------+-------+---------+-------------+------+---------+----------+-------------+-----------+
+1 row in set (0.291 sec)
+
+--UPDATE
+UPDATE adresse SET Hausnummer=39 WHERE Id=2000;
+ERROR 1142 (42000): UPDATE command denied to user 'Reader'@'localhost' for table `mytestdb`.`adresse`
+
+```
+
+### Contributor 
+
+Grants bei Test User `Contributor` überprüfen: 
+
+```SQL
+ SHOW GRANTS;
++--------------------------------------------------------------------------------------------------------------------+
+| Grants for Contributor@localhost                                                                                   |
++--------------------------------------------------------------------------------------------------------------------+
+| GRANT `RoleContributor` TO `Contributor`@`localhost`                                                               |
+| GRANT USAGE ON *.* TO `Contributor`@`localhost` IDENTIFIED BY PASSWORD '*A4B6157319038724E3560894F7F932C8886EBFCF' |
++--------------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.000 sec)
+
+SET ROLE RoleContributor;
+Query OK, 0 rows affected (0.000 sec)
+
+SHOW GRANTS;
++--------------------------------------------------------------------------------------------------------------------+
+| Grants for Contributor@localhost                                                                                   |
++--------------------------------------------------------------------------------------------------------------------+
+| GRANT `RoleContributor` TO `Contributor`@`localhost`                                                               |
+| GRANT USAGE ON *.* TO `Contributor`@`localhost` IDENTIFIED BY PASSWORD '*A4B6157319038724E3560894F7F932C8886EBFCF' |
+| GRANT USAGE ON *.* TO `RoleContributor`                                                                            |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `mytestdb`.* TO `RoleContributor`                                          |
++--------------------------------------------------------------------------------------------------------------------+
+4 rows in set (0.000 sec)
+
+-- SELECT
+select * FROM adresse JOIN person WHERE person.AdresseID = Adresse.ID AND Adresse.ID = 100;
++------+--------------+------------+-------+----------+-------------+------+---------+----------+----------------+-----------+
+| Id   | Strasse      | Hausnummer | PLZ   | Stadt    | Bundesstaat | Id   | Vorname | Nachname | Email          | AdresseId |
++------+--------------+------------+-------+----------+-------------+------+---------+----------+----------------+-----------+
+|  100 | Dimce Street | 13         | 56453 | Onocinut | NM          |  100 | Tony    | Logan    | fici@tolwav.tm |       100 |
++------+--------------+------------+-------+----------+-------------+------+---------+----------+----------------+-----------+
+1 row in set (0.305 sec)
+
+--UPDATE
+UPDATE adresse SET Hausnummer=14 WHERE Id=100;
+Query OK, 1 row affected (0.179 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+select * FROM adresse JOIN person WHERE person.AdresseID = Adresse.ID AND Adresse.ID = 100;
++------+--------------+------------+-------+----------+-------------+------+---------+----------+----------------+-----------+
+| Id   | Strasse      | Hausnummer | PLZ   | Stadt    | Bundesstaat | Id   | Vorname | Nachname | Email          | AdresseId |
++------+--------------+------------+-------+----------+-------------+------+---------+----------+----------------+-----------+
+|  100 | Dimce Street | 14         | 56453 | Onocinut | NM          |  100 | Tony    | Logan    | fici@tolwav.tm |       100 |
++------+--------------+------------+-------+----------+-------------+------+---------+----------+----------------+-----------+
+1 row in set (0.303 sec)
+
+```
+
+
+
+## 7 Performance Test ohne Index
+
+Test-Query schreiben, z.B.
+
+```sql
+SELECT * FROM Person person
+INNER JOIN Adresse adresse ON adresse.Id = person.AdresseId
+WHERE person.id = 2569;
+
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+| Id   | Vorname | Nachname | Email             | AdresseId | Id   | Strasse      | Hausnummer | PLZ   | Stadt  | Bundesstaat |
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+| 2569 | Sam     | Warren   | itcipuw@ahocar.it |      2569 | 2569 | Vube Terrace | 03         | 30123 | Mohuki | NM          |
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+1 row in set (9.464 sec)
+```
+
+**Ergebnis** 
+
+Schlechte Performance. bis zu 9s! (Raspberry Pi 4 mit MariaDB 10.3)
+
+
+## 8 Index erstellen nur auf eine Tabelle
+
+```sql
+DROP INDEX idx_AddresseId ON Person ;
+CREATE INDEX idx_AddresseId ON Person (AdresseId);
+```
+
+## 9 Test gem. Nr 7 wiederholen
+
+
+```SQL
+SELECT * FROM Person person
+    -> INNER JOIN Adresse adresse ON adresse.Id = person.AdresseId
+    -> WHERE person.id = 2569;
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+| Id   | Vorname | Nachname | Email             | AdresseId | Id   | Strasse      | Hausnummer | PLZ   | Stadt  | Bundesstaat |
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+| 2569 | Sam     | Warren   | itcipuw@ahocar.it |      2569 | 2569 | Vube Terrace | 03         | 30123 | Mohuki | NM          |
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+1 row in set (1.189 sec)
+```
+
+Duration hat sich auch verändert: **Ca. 10x schneller!**
+
+## 10 Index erstellen auf die andere Tabelle
+
+```sql
+DROP INDEX idx_Id ON Adresse;
+CREATE INDEX idx_Id ON Adresse (Id);
+```
+
+## 11 Test gem. Nr 7 wiederholen
+
+SELECT * FROM Person person
+    -> INNER JOIN Adresse adresse ON adresse.Id = person.AdresseId
+    -> WHERE person.id = 2569;
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+| Id   | Vorname | Nachname | Email             | AdresseId | Id   | Strasse      | Hausnummer | PLZ   | Stadt  | Bundesstaat |
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+| 2569 | Sam     | Warren   | itcipuw@ahocar.it |      2569 | 2569 | Vube Terrace | 03         | 30123 | Mohuki | NM          |
++------+---------+----------+-------------------+-----------+------+--------------+------------+-------+--------+-------------+
+1 row in set (0.159 sec)
+
+
+Duration hat sich auch verändert: **Ca. 100x schneller!**
+
+## 12 Datenkonsistenz testen
+
+Hinweis: Dateninkonsistenz simulieren: In der Tabelle Adresse kommmen mehrere Datensätze doppelt vor (insgesamt 3 Datensätze)
+
+1. Primary Key in der Tabelle Adresse setzen
+
+```SQL
+ALTER TABLE adresse ADD PRIMARY KEY (ID);
+Records: 0  Duplicates: 1  Warnings: 0
+```
+
+2. Fehler erscheint, was ist zu tun?
+
+Doppelte Datensätze fnden:
+
+```sql
+SELECT Id FROM Adresse
+GROUP BY Id
+HAVING COUNT(Id) > 1;
+
++--------+
+| Id     |
++--------+
+|  44738 |
+| 133344 |
+| 234426 |
++--------+
+3 rows in set (0.128 sec)
+
+select * from Adresse WHERE ID=44738;
++-------+------------+------------+-------+---------+-------------+
+| Id    | Strasse    | Hausnummer | PLZ   | Stadt   | Bundesstaat |
++-------+------------+------------+-------+---------+-------------+
+| 44738 | Weodu Path | 09         | 20203 | Mobimha | WI          |
+| 44738 | Weodu Path | 09         | 20203 | Mobimha | WI          |
++-------+------------+------------+-------+---------+-------------+
+2 rows in set (0.001 sec)
+```
+
+3. Fehler beheben bzw. redundanten Datensatz löschen
+
+
+```SQL
+DELETE FROM Adresse WHERE ID=44738 Limit 1;
+DELETE FROM Adresse WHERE ID=133344 Limit 1;
+DELETE FROM Adresse WHERE ID=234426 Limit 1;
+```
+
+4. Primary Key in der Tabelle Adresse nochmals versuchen zu setzen
+
+```SQL
+ALTER TABLE adresse ADD PRIMARY KEY (ID);
+Query OK, 0 rows affected (3.205 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ALTER TABLE Person ADD PRIMARY KEY (ID);
+Query OK, 0 rows affected (3.256 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+```
+
+## 13 Schlussbilanz
+
+...
